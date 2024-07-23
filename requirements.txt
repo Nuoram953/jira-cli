@@ -1,0 +1,2 @@
+inquirer==3.3.0
+click==8.1.7
