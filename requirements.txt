@@ -1,2 +1,4 @@
 inquirer==3.3.0
 click==8.1.7
+requests==2.32.3
+rich==13.7.1

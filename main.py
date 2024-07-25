@@ -2,9 +2,14 @@
 
 import click
 import inquirer
+from time import sleep
+from rich.console import Console
 
 from constant import Option, ErrorMessage
+from services.jira import Jira
 
+jira = Jira()
+console = Console()
 
 @click.group()
 def cli():
@@ -13,9 +18,6 @@ def cli():
 
 
 @cli.command()
-@click.option(
-    Option.SPRINT.full(), is_flag=True, default=False, help=Option.SPRINT.help()
-)
 @click.option(
     Option.PARENT.short(), Option.PARENT.full(), default=None, help=Option.PARENT.help()
 )
@@ -27,10 +29,21 @@ def view_issues(sprint, parent, who, creation, type):
 
 
 @cli.command()
+@click.option("--who", default="me", help="Who is the assignee")
+@click.option("--order", default="me", help="Who is the assignee")
+def view_sprint(who, order):
+    raise NotImplementedError(ErrorMessage.WIP.value)
+
+
+@cli.command()
 @click.option(Option.ID.full(), help=Option.ID.help())
 @click.option("--web", default=False, help="Open the issue in your default browser")
 def view_issue(id, web):
-    raise NotImplementedError(ErrorMessage.WIP.value)
+    console.clear()
+    with console.status(f"[bold green]Working on getting issue #{id}...") as status:
+        issue = jira.get_issue_by_id(id)
+        sleep(1)
+    print(issue.timeSpentSeconds)
 
 
 @cli.command()
