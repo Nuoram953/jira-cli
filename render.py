@@ -33,4 +33,3 @@ class Render:
 
         print("\n")
         self.console.rule("Comments")
-    

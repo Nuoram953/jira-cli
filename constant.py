@@ -3,8 +3,8 @@ from enum import Enum
 
 class Option(Enum):
     ID = {"full": "--id", "short": "-i", "help": ""}
-    SPRINT ={"full": "--sprint", "short": "-s", "help": ""}
-    PARENT ={"full": "--parent", "short": "-p", "help": ""}
+    SPRINT = {"full": "--sprint", "short": "-s", "help": ""}
+    PARENT = {"full": "--parent", "short": "-p", "help": ""}
     WHO = "--who"
     CREATION = "--creation"
     TYPE = "--type"

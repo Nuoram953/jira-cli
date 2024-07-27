@@ -13,7 +13,7 @@ class Issue:
 
         self.original_estimate = None
         self.remaining_estimate = None
-        self.timeSpent = None 
+        self.timeSpent = None
 
         set_data_func = (
             self.set_summary,
@@ -22,7 +22,7 @@ class Issue:
             self.set_worklogs,
             self.set_subtasks,
             self.set_description,
-            self.set_timetracking
+            self.set_timetracking,
         )
 
         for func in set_data_func:
@@ -92,5 +92,3 @@ class Issue:
 
         for comment in self.fields["comment"]["comments"]:
             pass
-
-

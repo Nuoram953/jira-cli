@@ -2,3 +2,5 @@ inquirer==3.3.0
 click==8.1.7
 requests==2.32.3
 rich==13.7.1
+python-dotenv==1.0.1
+faker==26.0.0

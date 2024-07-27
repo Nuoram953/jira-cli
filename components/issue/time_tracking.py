@@ -1,8 +1,9 @@
 from models.issue import Issue
 from rich.columns import Columns
 
+
 class TimeTracking:
-    def __init__(self, issue:Issue) -> None:
+    def __init__(self, issue: Issue) -> None:
         self.issue = issue
 
     def print_as_column(self):

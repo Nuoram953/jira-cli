@@ -12,6 +12,7 @@ from services.jira import Jira
 jira = Jira()
 render = Render()
 
+
 @click.group()
 def cli():
     """CLI tool with multiple commands"""

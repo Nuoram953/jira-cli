@@ -6,17 +6,21 @@ from time import sleep
 from rich import print
 from rich.panel import Panel
 from rich.pretty import pprint
-
+from dotenv import load_dotenv
+from mocks.generate_issue import MockIssue
 from models.issue import Issue
+import os
 
 console = Console()
+load_dotenv()  # take environment variables from .env.
+
 
 class Jira:
     def __init__(self) -> None:
-        pass
-        # self.url = f"https://{JIRA_DOMAIN}.atlassian.net/rest/api/3/"
-        # self.auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_API_TOKEN)
-        # self.headers = {"Accept": "application/json"}
+        self.is_debug = os.getenv("IS_DEBUG") == "True"
+        self.url = f"https://{os.getenv('JIRA_DOMAIN')}.atlassian.net/rest/api/3/"
+        self.auth = HTTPBasicAuth(os.getenv("JIRA_EMAIL"), os.getenv("JIRA_API_TOKEN"))
+        self.headers = {"Accept": "application/json"}
 
     def get(self, endpoint):
         url = self.url + endpoint
@@ -32,6 +36,7 @@ class Jira:
             raise Exception("Not Found")
 
     def get_issue_by_id(self, id):
-        # data = self.get(f"issue/{id}")
-        with open('mock.json') as f:
-            return Issue(json.load(f))
+        if self.is_debug:
+            return MockIssue()
+
+        return self.get(f"issue/{id}")
