@@ -1,9 +1,7 @@
-from rich import print
 from rich.console import Console
-from components.issue.time_tracking import TimeTracking
-from components.table.issues import IssuesTable
 from models.issue import Issue
-from rich.columns import Columns
+import webbrowser
+from views.issue import ViewIssue
 
 
 class Render:
@@ -19,31 +17,12 @@ class Render:
 
         return self.console.status(f"[bold green]Loading...")
 
-    def view_issue(self, issue: Issue):
-        self.console.rule("Details")
-        print(f"Title: {issue.summary}")
-        print(f"Status: {issue.status}")
-        print(f"Reporter: {issue.reporter}")
-        print(f"Assignee: {issue.assignee}")
+    def open_in_web(self, link):
+        webbrowser.open("https://google.ca")
 
-        self.console.print("\n")
-        self.console.print(TimeTracking(issue).print_as_column())
+    def view_issue(self, issue: Issue, specific_view, web=False):
+        if web:
+            self.open_in_web(issue.key)
+            exit()
 
-        self.console.print("\n")
-        self.console.rule("Subtasks")
-        self.console.print(IssuesTable(issue).print())
-
-        self.console.print("\n")
-        self.console.rule("Worklogs")
-
-        for worklog in issue.worklogs:
-            worklog_data = [
-                (worklog["date"]),
-                (worklog["timeSpent"]),
-                (worklog["name"]),
-                (worklog["description"]),
-            ]
-            self.console.print(Columns(worklog_data, equal=True, expand=False))
-
-        print("\n")
-        self.console.rule("Comments")
+        ViewIssue(issue, specific_view)

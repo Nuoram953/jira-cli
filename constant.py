@@ -8,10 +8,11 @@ class Option(Enum):
     WHO = "--who"
     CREATION = "--creation"
     TYPE = "--type"
-    WEB = "--web"
+    WEB = {"full": "--web", "short": "-w", "help": ""}
     TIME = "--time"
     COMMENT = "--comment"
     PING = "--ping"
+    VIEW = {"full": "--view", "short": "-v", "help": "", "choice": ["detail", "subtasks", "worklogs", "comments"]}
 
     def full(self):
         return self.value["full"]
@@ -21,6 +22,9 @@ class Option(Enum):
 
     def help(self):
         return self.value["help"]
+
+    def choice(self):
+        return self.value["choice"]
 
 
 class ErrorMessage(Enum):

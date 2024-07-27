@@ -1,0 +1,4 @@
+[tool.black]
+line-length = 120  # Set your desired line length
+skip-string-normalization = true  # Optional: To avoid changing string quotes
+skip-magic-trailing-comma = true  # Optional: To avoid adding trailing commas

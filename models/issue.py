@@ -3,6 +3,7 @@ class Issue:
         self.api_response = api_response
         self.fields = api_response["fields"]
 
+        self.key = ""
         self.summary = None
         self.status = None
         self.assignee = None
@@ -63,9 +64,7 @@ class Issue:
             return
 
         for worklog in self.fields["worklog"]:
-            self.worklogs.append(
-                {"name": "", "timeSpent": "", "date": "", "description": ""}
-            )
+            self.worklogs.append({"name": "", "timeSpent": "", "date": "", "description": ""})
 
     def set_subtasks(self):
         if not self.is_field_exist("subtasks"):

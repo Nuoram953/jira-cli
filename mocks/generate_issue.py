@@ -6,6 +6,7 @@ fake = Faker()
 
 class MockIssue:
     def __init__(self) -> None:
+        self.key = ""
         self.summary = fake.text(80)
         self.status = fake.text(20)
         self.assignee = fake.name()
