@@ -3,13 +3,14 @@
 import click
 import inquirer
 from time import sleep
-from rich.console import Console
+import rich
 
 from constant import Option, ErrorMessage
+from render import Render
 from services.jira import Jira
 
 jira = Jira()
-console = Console()
+render = Render()
 
 @click.group()
 def cli():
@@ -39,11 +40,10 @@ def view_sprint(who, order):
 @click.option(Option.ID.full(), help=Option.ID.help())
 @click.option("--web", default=False, help="Open the issue in your default browser")
 def view_issue(id, web):
-    console.clear()
-    with console.status(f"[bold green]Working on getting issue #{id}...") as status:
+    with render.show_loading() as status:
         issue = jira.get_issue_by_id(id)
         sleep(1)
-    print(issue.timeSpentSeconds)
+    render.view_issue(issue)
 
 
 @cli.command()

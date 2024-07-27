@@ -4,11 +4,16 @@ class Issue:
         self.fields = api_response["fields"]
 
         self.summary = None
+        self.status = None
         self.assignee = None
         self.reporter = None
-        self.timeSpentSeconds = 0
         self.subtasks = []
         self.description = []
+        self.comments = []
+
+        self.original_estimate = None
+        self.remaining_estimate = None
+        self.timeSpent = None 
 
         set_data_func = (
             self.set_summary,
@@ -17,6 +22,7 @@ class Issue:
             self.set_worklogs,
             self.set_subtasks,
             self.set_description,
+            self.set_timetracking
         )
 
         for func in set_data_func:
@@ -43,19 +49,34 @@ class Issue:
 
         self.reporter = self.fields["reporter"]["displayName"]
 
+    def set_timetracking(self):
+        if not self.is_field_exist("timetracking"):
+            return
+
+        self.original_estimate = self.fields["timetracking"]["originalEstimate"]
+        self.remaining_estimate = self.fields["timetracking"]["remainingEstimate"]
+        self.timeSpent = self.fields["timetracking"]["timeSpent"]
+
     def set_worklogs(self):
         if not self.is_field_exist("worklog"):
             return
 
         for worklog in self.fields["worklog"]:
-            self.timeSpentSeconds += worklog["timeSpentSeconds"]
+            pass
 
     def set_subtasks(self):
         if not self.is_field_exist("subtasks"):
             return
 
         for subtask in self.fields["subtasks"]:
-            self.subtasks.append(subtask)
+            self.subtasks.append(
+                {
+                    "id": subtask["key"],
+                    "type": subtask["fields"]["issuetype"]["name"],
+                    "summary": subtask["fields"]["summary"],
+                    "status": subtask["fields"]["status"]["name"],
+                }
+            )
 
     def set_description(self):
         if not self.is_field_exist("description"):
@@ -64,3 +85,12 @@ class Issue:
         for content in self.fields["description"]["content"]:
             for line in content["content"]:
                 self.description.append(line["text"])
+
+    def set_comments(self):
+        if not self.is_field_exist("comment"):
+            return
+
+        for comment in self.fields["comment"]["comments"]:
+            pass
+
+
