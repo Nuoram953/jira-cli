@@ -3,6 +3,7 @@ from rich.console import Console
 from components.issue.time_tracking import TimeTracking
 from components.table.issues import IssuesTable
 from models.issue import Issue
+from rich.columns import Columns
 
 
 class Render:
@@ -28,8 +29,21 @@ class Render:
         self.console.print("\n")
         self.console.print(TimeTracking(issue).print_as_column())
 
+        self.console.print("\n")
         self.console.rule("Subtasks")
         self.console.print(IssuesTable(issue).print())
+
+        self.console.print("\n")
+        self.console.rule("Worklogs")
+
+        for worklog in issue.worklogs:
+            worklog_data = [
+                (worklog["date"]),
+                (worklog["timeSpent"]),
+                (worklog["name"]),
+                (worklog["description"]),
+            ]
+            self.console.print(Columns(worklog_data, equal=True, expand=False))
 
         print("\n")
         self.console.rule("Comments")

@@ -13,7 +13,7 @@ class MockIssue:
         self.subtasks = [self.generate_random_subtask() for _ in range(randint(1, 10))]
         self.description = []
         self.comments = []
-
+        self.worklogs = [self.generate_random_worklogs() for _ in range(randint(2, 5))]
         self.original_estimate = self.generate_random_time()
         self.remaining_estimate = self.generate_random_time()
         self.timeSpent = self.generate_random_time()
@@ -24,6 +24,14 @@ class MockIssue:
             "type": " ".join(fake.words(randint(1, 3))),
             "summary": fake.text(100),
             "status": " ".join(fake.words(randint(1, 3))),
+        }
+
+    def generate_random_worklogs(self):
+        return {
+            "name": fake.name(),
+            "timeSpent": self.generate_random_time(),
+            "date": fake.date(),
+            "description": fake.text(30),
         }
 
     def generate_random_time(self):

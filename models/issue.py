@@ -10,6 +10,7 @@ class Issue:
         self.subtasks = []
         self.description = []
         self.comments = []
+        self.worklogs = []
 
         self.original_estimate = None
         self.remaining_estimate = None
@@ -62,7 +63,9 @@ class Issue:
             return
 
         for worklog in self.fields["worklog"]:
-            pass
+            self.worklogs.append(
+                {"name": "", "timeSpent": "", "date": "", "description": ""}
+            )
 
     def set_subtasks(self):
         if not self.is_field_exist("subtasks"):

@@ -12,6 +12,7 @@ from services.jira import Jira
 jira = Jira()
 render = Render()
 
+click.clear()
 
 @click.group()
 def cli():
