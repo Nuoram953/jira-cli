@@ -1,3 +1,6 @@
+from utils import run_all_or_specific
+
+
 class Issue:
     def __init__(self, api_response) -> None:
         self.api_response = api_response
@@ -17,18 +20,7 @@ class Issue:
         self.remaining_estimate = None
         self.timeSpent = None
 
-        set_data_func = (
-            self.set_summary,
-            self.set_assignee,
-            self.set_reporter,
-            self.set_worklogs,
-            self.set_subtasks,
-            self.set_description,
-            self.set_timetracking,
-        )
-
-        for func in set_data_func:
-            func()
+        run_all_or_specific("set_")
 
     def is_field_exist(self, field):
         return field in self.fields
@@ -92,5 +84,12 @@ class Issue:
         if not self.is_field_exist("comment"):
             return
 
-        for comment in self.fields["comment"]["comments"]:
-            pass
+        for comment in self.fields["comment"]:
+            self.comments.append(
+                {
+                    "author": comment["author"]["displayName"],
+                    "content": [content["text"] for content in comment["body"]["content"]],
+                    "date": comment["created"],
+                    "updated": comment["updated"],
+                }
+            ),

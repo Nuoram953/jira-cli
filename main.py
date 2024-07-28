@@ -4,10 +4,12 @@ import click
 import inquirer
 from time import sleep
 import rich
+import webbrowser
 
 from constant import Option, ErrorMessage
 from render import Render
 from services.jira import Jira
+from views.issue import ViewIssue
 
 jira = Jira()
 render = Render()
@@ -42,10 +44,14 @@ def view_sprint(who, order):
 @click.option(Option.WEB.short(), Option.WEB.full(), help=Option.WEB.help(), is_flag=True)
 @click.option(Option.VIEW.short(), Option.VIEW.full(), type=click.Choice(Option.VIEW.choice(), case_sensitive=False))
 def view_issue(id, web, view=None):
+    if web:
+        webbrowser.open("https://google.ca")
+
     with render.show_loading():
         issue = jira.get_issue_by_id(id)
         sleep(1)
-    render.view_issue(issue, view, web)
+
+    ViewIssue(issue, view)
 
 
 @cli.command()

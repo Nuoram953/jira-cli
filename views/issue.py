@@ -1,12 +1,14 @@
 from rich.console import Console
+from components.issue.comments import Comments
 from components.issue.time_tracking import TimeTracking
 from components.issue.worklogs import Worklogs
 from components.table.issues import IssuesTable
+from models.issue import Issue
 from utils import run_all_or_specific
 
 
 class ViewIssue:
-    def __init__(self, issue, single_component=None) -> None:
+    def __init__(self, issue:Issue, single_component=None) -> None:
         self.console = Console()
         self.issue = issue
 
@@ -36,3 +38,8 @@ class ViewIssue:
     def generate_comments(self):
         print("\n")
         self.console.rule("Comments")
+
+        for comment in self.issue.comments:
+            self.console.print(Comments(comment).print_as_column())
+            self.console.print("\n")
+
