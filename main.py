@@ -7,12 +7,12 @@ import rich
 import webbrowser
 
 from constant import Option, ErrorMessage
-from render import Render
+from terminal import Terminal
 from services.jira import Jira
 from views.issue import ViewIssue
 
 jira = Jira()
-render = Render()
+terminal = Terminal()
 
 click.clear()
 
@@ -47,7 +47,7 @@ def view_issue(id, web, view=None):
     if web:
         webbrowser.open("https://google.ca")
 
-    with render.show_loading():
+    with terminal.show_loading():
         issue = jira.get_issue_by_id(id)
         sleep(1)
 

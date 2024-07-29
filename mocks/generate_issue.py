@@ -13,7 +13,7 @@ class MockIssue:
         self.reporter = fake.name()
         self.subtasks = [self.generate_random_subtask() for _ in range(randint(1, 10))]
         self.description = []
-        self.comments = [self.generate_random_comments() for _ in range(randint(1,3))]
+        self.comments = [self.generate_random_comments() for _ in range(randint(1, 3))]
         self.worklogs = [self.generate_random_worklogs() for _ in range(randint(2, 5))]
         self.original_estimate = self.generate_random_time()
         self.remaining_estimate = self.generate_random_time()
@@ -38,7 +38,7 @@ class MockIssue:
     def generate_random_comments(self):
         return {
             "author": fake.name(),
-            "content": [fake.text() for content in range(randint(1,3))],
+            "content": [fake.text() for content in range(randint(1, 3))],
             "date": fake.date(),
             "updated": fake.date(),
         }

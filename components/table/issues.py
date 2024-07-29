@@ -1,7 +1,7 @@
 from rich.table import Table
 
 
-class IssuesTable:
+class IssueSubtasksTable:
     def __init__(self, issue, expand=True) -> None:
         self.table = Table(expand=expand)
         self.issue = issue
@@ -18,5 +18,5 @@ class IssuesTable:
         for subtask in self.issue.subtasks:
             self.table.add_row(f"{subtask['id']} ({subtask['type']})", subtask["summary"], subtask["status"])
 
-    def print(self):
+    def print_as_table(self):
         return self.table

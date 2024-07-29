@@ -1,5 +1,10 @@
-def run_all_or_specific(self, prefix, func_name=None):
+def run_all_or_specific(self, prefix, func_name=None, order=None):
     if func_name is None:
+        if order:
+            for func in order:
+                getattr(self, func)()
+            return
+
         for attr in dir(self):
             if callable(getattr(self, attr)) and attr.startswith(prefix):
                 getattr(self, attr)()

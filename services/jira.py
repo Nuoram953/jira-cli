@@ -2,17 +2,12 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 from rich.console import Console
-from time import sleep
-from rich import print
-from rich.panel import Panel
-from rich.pretty import pprint
 from dotenv import load_dotenv
 from mocks.generate_issue import MockIssue
-from models.issue import Issue
 import os
 
 console = Console()
-load_dotenv()  # take environment variables from .env.
+load_dotenv()
 
 
 class Jira:

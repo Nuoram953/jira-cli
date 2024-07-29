@@ -80,16 +80,26 @@ class Issue:
             for line in content["content"]:
                 self.description.append(line["text"])
 
-    def set_comments(self):
+    def set_comment(self):
         if not self.is_field_exist("comment"):
             return
 
         for comment in self.fields["comment"]:
-            self.comments.append(
-                {
-                    "author": comment["author"]["displayName"],
-                    "content": [content["text"] for content in comment["body"]["content"]],
-                    "date": comment["created"],
-                    "updated": comment["updated"],
-                }
-            ),
+            self.comments.append(self.parse_comment(comment))
+
+    def set_comments(self):
+        if not self.is_field_exist("comments"):
+            return
+
+        for comment in self.fields["comments"]["comment"]:
+            self.comments.append(self.parse_comment(comment))
+
+    def parse_comment(self, comment):
+        comment.append(
+            {
+                "author": comment["author"]["displayName"],
+                "content": [content["text"] for content in comment["body"]["content"]],
+                "date": comment["created"],
+                "updated": comment["updated"],
+            }
+        ),
