@@ -9,4 +9,4 @@ class Details:
         print(f"Title: {self.issue.summary}")
         print(f"Status: {self.issue.status}")
         print(f"Reporter: {self.issue.reporter}")
-        print(f"Assignee: {self.issue.assignee}")
+        print(f"Time: {self.issue.timeSpent} / {self.issue.original_estimate}")

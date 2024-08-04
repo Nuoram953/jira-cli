@@ -19,7 +19,6 @@ class ViewIssue:
             func_name=single_component,
             order=[
                 "generate_detail",
-                "generate_time_tracking",
                 "generate_subtasks",
                 "generate_comments",
                 "generate_worklogs",
@@ -29,15 +28,10 @@ class ViewIssue:
     def generate_detail(self):
         self.terminal.rule("Details")
         Details(self.issue).print()
-        self.terminal.print("\n")
-
-    def generate_time_tracking(self):
-        TimeTracking(self.issue).print()
-        self.terminal.print("\n")
 
     def generate_subtasks(self):
-        self.terminal.print(IssueSubtasksTable(self.issue).print_as_table())
         self.terminal.print("\n")
+        self.terminal.print(IssueSubtasksTable(self.issue).print_as_table())
 
     def generate_worklogs(self):
         self.terminal.rule("Worklogs")
